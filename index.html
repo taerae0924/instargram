@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Like & Comment</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #fbc2eb, #a6c1ee);
+            text-align: center;
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+        .post-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: left;
+        }
+        .like-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .like-btn {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            color: #aaa;
+        }
+        .like-btn.liked {
+            color: #ff3b3b;
+            transform: scale(1.2);
+        }
+        .like-btn:active {
+            transform: scale(1.4);
+        }
+        .like-count {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-left: 8px;
+        }
+        /* 댓글 스타일 */
+        .comment-section {
+            margin-top: 15px;
+        }
+        .comment-input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+        .comment-btn {
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 14px;
+        }
+        .comment-btn:hover {
+            background-color: #007acc;
+        }
+        .comment-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        .comment-list li {
+            background: #f1f1f1;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 15px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome ❤️ & 💬</h1>
+    <div class="post-container">
+        <p><strong>📸 @Taerae</strong></p>
+        <img src="https://fimg2.pann.com/new/download.jsp?FileID=22633619" alt="Post Image" width="100%" style="border-radius: 10px;">
+
+        <div class="like-container">
+            <button class="like-btn" onclick="toggleLike()">🤍</button>
+            <p class="like-count" id="likeCount">0 Likes</p>
+        </div>
+
+        <!-- 댓글 입력창 -->
+        <div class="comment-section">
+            <input type="text" class="comment-input" id="commentInput" placeholder="댓글 달기...">
+            <button class="comment-btn" onclick="addComment()">게시</button>
+            <ul class="comment-list" id="commentList"></ul>
+        </div>
+    </div>
+
+    <script>
+        let likeCount = 0;
+        let liked = false;
+
+        function toggleLike() {
+            const likeBtn = document.querySelector('.like-btn');
+            const likeText = document.getElementById("likeCount");
+
+            liked = !liked;
+            if (liked) {
+                likeCount++;
+                likeBtn.innerHTML = "❤️"; // 하트 채우기
+                likeBtn.classList.add("liked");
+            } else {
+                likeCount--;
+                likeBtn.innerHTML = "🤍"; // 빈 하트
+                likeBtn.classList.remove("liked");
+            }
+
+            likeText.innerText = likeCount + (likeCount === 1 ? " Like" : " Likes");
+        }
+
+        function addComment() {
+            const commentInput = document.getElementById("commentInput");
+            const commentList = document.getElementById("commentList");
+
+            if (commentInput.value.trim() === "") return;
+
+            // 새로운 댓글 요소 생성
+            const newComment = document.createElement("li");
+            newComment.textContent = commentInput.value;
+
+            // 리스트에 추가
+            commentList.appendChild(newComment);
+
+            // 입력창 초기화
+            commentInput.value = "";
+        }
+    </script>
+</body>
+</html>
